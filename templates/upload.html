@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'css/styles1.css' %}">
+        <script src="{% static 'javascript/SimpleImage.js' %}"></script>
+        <script src="{% static 'javascript/scp.js' %}"></script>  
+    </head>
+    <body>
+        <div id="tops">
+            <form  id = 'back_button_form' action="{% url 'portfolio:index' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <button id = 'back_button_icon' type="submit">Back</button>
+            </form>
+            <a href="https://github.com/Kunal-Shaw-097/Image-captioning" target="_blank"><img id='github_icon' src="{% static 'github.png' %}  " alt=""></a>
+        </div>
+        <h1>Image Caption Generator</h1>
+        <div id="top">
+            <div id="canvas">
+               {% block canvas %}
+               
+               {% endblock canvas %}
+               <canvas id="canv1"></canvas>
+            </div>
+            <form method="POST" enctype="multipart/form-data" action="{% url 'ProjImgCap:GenerateCaption' %}">
+                {% csrf_token %}
+                ImageName:
+                <input type="file" name="image" multiple="false" accept="image/*" id=finput onchange=display()>
+                <input type="submit" value="Generate">
+            </form>
+        </div>
+       {% block caption %} 
+       
+       {% endblock caption %}
+    </body>
+    {% block script %}{% endblock script %}
+</html>
+
+
+
+
